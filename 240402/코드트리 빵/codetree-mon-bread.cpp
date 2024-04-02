@@ -77,7 +77,7 @@ int main(){
         }
     }
     for(int i=0;i<2;i++){
-        for(int j=0;j<16;j++){
+        for(int j=0;j<31;j++){
             convLocation[i][j]=-1;
         }
     }
