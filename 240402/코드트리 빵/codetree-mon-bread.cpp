@@ -82,7 +82,7 @@ pair<int,int> getBaseLocatioin(int curX,int curY){
     }
     for(int i=0;i<n;i++){
         for(int j=0;j<n;j++){
-            if(board[i][j]==1)pq.push({cboard[i][j],i,j});
+            if(board[i][j]==1&&cboard[i][j]!=0)pq.push({cboard[i][j],i,j});
         }
     }
     return {get<1>(pq.top()),get<2>(pq.top())};
