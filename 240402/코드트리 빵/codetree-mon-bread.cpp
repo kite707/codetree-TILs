@@ -5,7 +5,7 @@ using namespace std;
 
 int board[15][15];
 int n,m,t,a,b;
-int convLocation[2][16];
+int convLocation[2][31];
 
 int dx[4]={0,1,-1,0};
 int dy[4]={1,0,0,-1};
@@ -122,6 +122,7 @@ int main(){
         }
         //베이스캠프 배치
         if(convLocation[1][curTime]!=-1&&convLocation[0][curTime]!=-1){
+            //cout<<"curTime is : "<<curTime<<endl;
             //cout<<"convloc: x,y  "<<convLocation[1][curTime]<<"  "<<convLocation[0][curTime]<<endl;
             auto base= getBaseLocatioin(convLocation[1][curTime],convLocation[0][curTime]);
             board[base.first][base.second]=-1;
@@ -130,11 +131,12 @@ int main(){
             //cout<<"debug: "<<base.first<<"  "<<base.second<<endl;
             onboard.push({curTime,base.first,base.second});//사람, y, x
         }
+        //cout<<"시간증가\n";
         curTime++;
     }
     cout<<curTime-1<<endl;
-//    auto k= bfs(2,1);
-//    cout<<k.first<<"  "<<k.second<<endl;
+    //    auto k= bfs(2,1);
+    //    cout<<k.first<<"  "<<k.second<<endl;
 
 
 }
