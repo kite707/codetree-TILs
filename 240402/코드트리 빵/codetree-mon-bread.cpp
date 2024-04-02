@@ -10,6 +10,16 @@ int convLocation[2][16];
 int dx[4]={0,1,-1,0};
 int dy[4]={1,0,0,-1};
 
+void boardPrinter(){
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cout<<board[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+    cout<<endl;
+}
+
 pair<int,int> bfs(int curX,int curY,int convX,int convY){
     //cout<<curX<<" "<<curY<<" "<<convX<< "  "<<convY<<endl;
     queue<pair<int,int>> q;
@@ -34,21 +44,23 @@ pair<int,int> bfs(int curX,int curY,int convX,int convY){
 }
 
 pair<int,int> getBaseLocatioin(int curX,int curY){
+    //cout<<curX<< "  "<<curY<<endl;
+    //boardPrinter();
     queue<pair<int,int>> q;
     q.push({curY,curX});
     while(!q.empty()){
         auto tp=q.front();
         int curx=tp.second;
         int cury=tp.first;
+        if(board[cury][curx]==1){
+            return {cury,curx};
+        }
         q.pop();
         for(int i=3;i>=0;i--){
             int nxtX=curx+dx[i];
             int nxtY=cury+dy[i];
             if(nxtX>n||nxtY>n||nxtX<0||nxtY<0)continue;
             if(board[nxtY][nxtX]==-1)continue;
-            if(board[nxtY][nxtX]==1){
-                return {nxtY,nxtX};
-            }
             q.push({nxtY,nxtX});
         }
     }
@@ -73,7 +85,7 @@ int main(){
         cin>>a>>b;
         convLocation[0][i]=a-1;//y
         convLocation[1][i]=b-1;//x
-        board[a-1][b-1]=m+1000;
+        //board[a-1][b-1]=m+1000;
     }
 
     int curTime = 1;
@@ -110,8 +122,11 @@ int main(){
         }
         //베이스캠프 배치
         if(convLocation[1][curTime]!=-1&&convLocation[0][curTime]!=-1){
+            //cout<<"convloc: x,y  "<<convLocation[1][curTime]<<"  "<<convLocation[0][curTime]<<endl;
             auto base= getBaseLocatioin(convLocation[1][curTime],convLocation[0][curTime]);
             board[base.first][base.second]=-1;
+            //cout<<"베이스캠프 표시 후: "<<endl;
+            //boardPrinter();
             //cout<<"debug: "<<base.first<<"  "<<base.second<<endl;
             onboard.push({curTime,base.first,base.second});//사람, y, x
         }
