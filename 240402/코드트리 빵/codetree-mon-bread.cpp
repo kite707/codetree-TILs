@@ -121,7 +121,7 @@ int main(){
 
         }
         //베이스캠프 배치
-        if(convLocation[1][curTime]!=-1&&convLocation[0][curTime]!=-1){
+        if(curTime<=m&&convLocation[1][curTime]!=-1&&convLocation[0][curTime]!=-1){
             //cout<<"curTime is : "<<curTime<<endl;
             //cout<<"convloc: x,y  "<<convLocation[1][curTime]<<"  "<<convLocation[0][curTime]<<endl;
             auto base= getBaseLocatioin(convLocation[1][curTime],convLocation[0][curTime]);
