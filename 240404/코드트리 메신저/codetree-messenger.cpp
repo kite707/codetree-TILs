@@ -3,7 +3,7 @@
 #include <algorithm>
 using namespace std;
 
-int treeSaver[100001][3];
+int treeSaver[2][100001];
 int authority[100001];
 bool isDisabled[100001];
 int curAns;
@@ -11,7 +11,7 @@ vector <pair<int,int>> parents;
 int Q,N;
 
 int findloc(int parents, int son){
-    if(treeSaver[parents][0]==son)return 0;
+    if(treeSaver[0][parents]==son)return 0;
     return 1;
 }
 
@@ -29,9 +29,8 @@ int findParents(int tmp){
 }
 
 void findAlarm(int num,int curDepth){
-    int left=treeSaver[num][0];
-    int right=treeSaver[num][1];
-    //cout<<"curnum, left right is : "<<num<<" "<<left<<" "<<right<<endl;
+    int left=treeSaver[0][num];
+    int right=treeSaver[1][num];
     if(left!=0&&isDisabled[left]==false){
         if(authority[left]>=curDepth){
             curAns++; 
@@ -56,10 +55,10 @@ int main() {
             for(int i=1;i<=Q;i++){
                 cin>>par;
                 parents.push_back({i,par});
-                if(treeSaver[par][0]==0){
-                    treeSaver[par][0]=i;
+                if(treeSaver[0][par]==0){
+                    treeSaver[0][par]=i;
                 }else{
-                    treeSaver[par][1]=i;
+                    treeSaver[1][par]=i;
                 }
             }
             sort(parents.begin(),parents.end());
@@ -82,8 +81,8 @@ int main() {
              int parents2=findParents(auth);
              int locPar=findloc(parents1,par);
              int locAuth=findloc(parents2,auth);
-             treeSaver[parents1][locPar]=auth;
-             treeSaver[parents2][locAuth]=par;
+             treeSaver[locPar][parents1]=auth;
+             treeSaver[locAuth][parents2]=par;
 
         }
         else if(code==500) {
