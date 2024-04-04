@@ -61,9 +61,9 @@ int main() {
                     treeSaver[1][par]=i;
                 }
             }
-            sort(parents.begin(),parents.end());
             for(int i=1;i<=Q;i++){
                 cin>>authority[i];
+                if(authority[i]>20)authority[i]=20;
             }
         }
         else if(code==200){
