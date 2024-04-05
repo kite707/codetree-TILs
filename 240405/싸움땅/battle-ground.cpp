@@ -70,7 +70,7 @@ int fight(int playerA, int playerB){
     int statA=player[playerA][3]+player[playerA][4];
     int statB=player[playerB][3]+player[playerB][4];
 
-    if(statA==statB&&player[playerA]>player[playerB])return playerA;
+    if(statA==statB&&player[playerA][3]>player[playerB][3])return playerA;
     if(statA>statB){
         point[playerA]+=statA-statB;
         return playerA;
