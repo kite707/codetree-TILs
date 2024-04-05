@@ -3,7 +3,6 @@
 #include <algorithm>
 using namespace std;
 vector<int> guns[21][21];
-int board[21][21];
 int playerBoard[21][21];
 int player[31][5]; //x y 방향 초기능력치 총
 int point[31];
@@ -27,10 +26,11 @@ void playerboardPrinter(){
 }
 
 void input(){
+    int tmp;
     for(int i=1;i<=n;i++)
         for(int j=1;j<=n;j++){
-            cin>>board[i][j];
-            guns[i][j].push_back(board[i][j]);
+            cin>>tmp;
+            guns[i][j].push_back(tmp);
         }
 
     for(int i=1;i<=m;i++){
@@ -57,7 +57,7 @@ void movePlayer(int i){
 
 void getGun(int personNum, int curY, int curX){
     int curPersonGun=player[personNum][4];
-    sort(guns[curY][curX].begin(),guns[curY][curX].begin(),cmp);
+    sort(guns[curY][curX].begin(),guns[curY][curX].end(),cmp);
     if(guns[curY][curX][0]>curPersonGun){
         int tmp=curPersonGun;
         curPersonGun=guns[curY][curX][0];
@@ -109,22 +109,27 @@ void playOneRound(){
     //사람 한명씩 이동
     for(int i=1;i<=m;i++){
         movePlayer(i);
-        //playerboardPrinter();
         int curPlayerY=player[i][0];
         int curPlayerX=player[i][1];
         if(playerBoard[curPlayerY][curPlayerX]==0){//플레이어 없으면 총 줍기 시도
             playerBoard[curPlayerY][curPlayerX]=i; //현재 플레이어 표기
+//            cout<<"플레이어 없어서 바로 이동\n";
+//            playerboardPrinter();
             getGun(i,curPlayerY,curPlayerX);
         }else{//플레이어 있으면
             int existPlayer = playerBoard[curPlayerY][curPlayerX];
             int winner = fight(i,existPlayer);
             if(winner == i){
                 playerBoard[curPlayerY][curPlayerX]=i;
+//                cout<<"새로온 애가 승리\n";
+//                playerboardPrinter();
                 losePlayer(existPlayer,curPlayerY,curPlayerX);
                 getGun(i,curPlayerY,curPlayerX);
 
             }else{
                 //i패배, exist우승
+//                cout<<"있던 애 승리\n";
+//                playerboardPrinter();
                 losePlayer(i,curPlayerY,curPlayerX);
                 getGun(existPlayer,curPlayerY,curPlayerX);
             }
