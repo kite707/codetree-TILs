@@ -97,7 +97,7 @@ void losePlayer(int personNum,int curY, int curX){
     player[personNum][2]=curdirection;
     player[personNum][0]=nxtY;
     player[personNum][1]=nxtX;
-
+    playerBoard[nxtY][nxtX]=personNum;
     //총 있으면 줍기
     getGun(personNum,nxtY,nxtX);
 }
